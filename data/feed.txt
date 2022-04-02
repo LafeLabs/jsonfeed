@@ -1,17 +1,13 @@
 [
   {
-    "name": "derp",
-    "url": "secrete url",
-    "href": "https://www.github.com/lafelabs/jsonfeed"
+    "url": "secret url",
+    "href": "https://www.github.com/lafelabs/jsonfeed",
+    "name": "GITHUB"
   },
   {
-    "name": "poop",
+    "name": "foo",
     "url": "https://www.github.com/lafelabs/jsonfeed",
     "href": "https://www.github.com/lafelabs/jsonfeed"
-  },
-  {
-    "name": "TRASH ROBOT",
-    "url": "https://www.trashrobot.org/"
   },
   {
     "name": "TRASH ROBOT",

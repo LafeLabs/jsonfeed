@@ -24,6 +24,12 @@
     <script src="jscode/geometron.js"></script>
 </head>
 <body>
+<div id =  "table">
+    <a href = "index.html">HOME</a>
+    <a href = "jsonio.html">JSON</a>
+    <a href = "feededitor.html">EDITOR</a>
+
+</div>
 <div id= "feed">
     
 </div>
@@ -42,28 +48,22 @@ httpcFeed.open("GET", "fileloader.php?filename=data/feed.txt", true);
 httpcFeed.send();
 
 function loadfeed(){
+    document.getElementById("feed").innerHTML = "";
     for(var index = 0;index < feed.length;index++){
         var newtable = document.createElement("TABLE");
         document.getElementById("feed").appendChild(newtable);
+
         for (const key in feed[index]) {
             if (feed[index].hasOwnProperty(key)) {
                 var newtr = document.createElement("TR");
                 newtable.appendChild(newtr);
-
                 var newtd = document.createElement("TD");
-                var newinput = document.createElement("input");
-                newinput.value = key;
-                newtd.appendChild(newinput);
+                newtd.classList.add("keytd");
+                newtd.innerHTML = key + ":";
                 newtr.appendChild(newtd);
                 var newtd = document.createElement("TD");
-                var newinput = document.createElement("input");
-                newinput.value = feed[index][key];
-                newtd.appendChild(newinput);
+                newtd.innerHTML = feed[index][key];
                 newtr.appendChild(newtd);
-                
-                console.log(key);
-                console.log(feed[index][key]);
-                
             }
         }
     }
@@ -92,6 +92,26 @@ body{
     bottom:0px;
     overflow:scroll;
     background-color:#e0e0e0;
+}
+#feed table{
+    margin:2em 2em 2em 2em;
+    display:block;
+}
+table{
+    border:solid;
+}
+.button{
+    cursor:pointer;
+    width:30px;
+}
+.button:hover{
+    background-color:#90ff90;
+}
+.button:active{
+    background-color:yellow;
+}
+.keytd{
+    text-align:right;
 }
 </style>
 </body>

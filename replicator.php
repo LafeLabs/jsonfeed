@@ -1,6 +1,6 @@
 <?php
 
-$dnaurl = "https://raw.githubusercontent.com/LafeLabs/geometroncoin/main/data/dna.txt";
+$dnaurl = "https://raw.githubusercontent.com/LafeLabs/jsonfeed/main/data/dna.txt";
 
 if(isset($_GET["dna"])){
     $dnaurl = $_GET["dna"];
@@ -15,10 +15,9 @@ mkdir("data");
 mkdir("php");
 mkdir("jscode");
 mkdir("iconsymbols");
-mkdir("scrolls");
 
 
-copy("https://raw.githubusercontent.com/LafeLabs/geometroncoin/main/php/replicator.txt","replicator.php");
+copy("https://raw.githubusercontent.com/LafeLabs/jsonfeed/main/php/replicator.txt","replicator.php");
 
 foreach($dna->html as $value){
     
@@ -53,13 +52,6 @@ foreach($dna->php as $value){
 
 }
 
-foreach($dna->scrolls as $value){
-        
-    if($value == "home"){
-        copy($baseurl."scrolls/".$value,"scrolls/".$value);
-    }
-    
-}
 
 
 ?>

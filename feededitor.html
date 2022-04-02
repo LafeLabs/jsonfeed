@@ -24,6 +24,12 @@
     <script src="jscode/geometron.js"></script>
 </head>
 <body>
+<div id =  "table">
+    <a href = "index.html">HOME</a>
+    <a href = "jsonio.html">JSON</a>
+    <a href= "feed.html">FEED</a>
+
+</div>
 <div id= "feed">
     
 </div>
@@ -50,11 +56,16 @@ function loadfeed(){
         newtable.appendChild(newtr);
         
         var newtd = document.createElement("TD");
-        newtd.innerHTML = "DELETE";
-        newtd.classList.add("button");
+        var newimg = document.createElement("IMG");
+        newimg.src = "iconsymbols/delete.svg";
+        newimg.alt = "DELETE";
+        newtd.appendChild(newimg);
+        newimg.classList.add("button");
+        newimg.classList.add("deletebutton");
+        
         newtr.appendChild(newtd);           
-        newtd.id = "deleteelement" + index.toString(); 
-        newtd.onclick = function(){
+        newimg.id = "deleteelement" + index.toString(); 
+        newimg.onclick = function(){
             var localindex = parseInt(this.id.split("deleteelement")[1]);
             var localfeed = [];
             for(var index = 0;index < feed.length;index++){
@@ -67,12 +78,15 @@ function loadfeed(){
             loadfeed();
         }
 
-        var newtd = document.createElement("TD");
-        newtd.innerHTML = "COPY";
-        newtd.classList.add("button");
-        newtr.appendChild(newtd);           
-        newtd.id = "copyelement" + index.toString(); 
-        newtd.onclick = function(){
+        var newimg = document.createElement("IMG");
+        newimg.src = "iconsymbols/copy.svg";
+        newimg.alt = "COPY";
+        newtd.appendChild(newimg);
+        newimg.classList.add("button");
+        newimg.classList.add("copybutton");
+
+        newimg.id = "copyelement" + index.toString(); 
+        newimg.onclick = function(){
             var localindex = parseInt(this.id.split("copyelement")[1]);
             var localelement = feed[localindex];
             feed.push(localelement);
@@ -81,12 +95,14 @@ function loadfeed(){
 
         }
 
-        var newtd = document.createElement("TD");
-        newtd.innerHTML = "MOVE UP";
-        newtd.classList.add("button");
-        newtr.appendChild(newtd);           
-        newtd.id = "moveup" + index.toString(); 
-        newtd.onclick = function(){
+
+        var newimg = document.createElement("IMG");
+        newimg.src = "iconsymbols/moveup.svg";
+        newimg.alt = "MOVE UP";
+        newtd.appendChild(newimg);
+        newimg.classList.add("button");
+        newimg.id = "moveup" + index.toString(); 
+        newimg.onclick = function(){
             var localindex = parseInt(this.id.split("moveup")[1]);
             var localelement = feed[localindex];
             var localfeed = [];
@@ -103,12 +119,14 @@ function loadfeed(){
 
         }
 
-        var newtd = document.createElement("TD");
-        newtd.innerHTML = "MOVE DOWN";
-        newtd.classList.add("button");
-        newtr.appendChild(newtd);           
-        newtd.id = "movedown" + index.toString(); 
-        newtd.onclick = function(){
+
+        var newimg = document.createElement("IMG");
+        newimg.src = "iconsymbols/movedown.svg";
+        newimg.alt = "MOVE DOWN";
+        newtd.appendChild(newimg);
+        newimg.classList.add("button");
+        newimg.id = "movedown" + index.toString(); 
+        newimg.onclick = function(){
             var localindex = parseInt(this.id.split("movedown")[1]);
             var localelement = feed[localindex];
             var localfeed = [];
@@ -141,12 +159,6 @@ function loadfeed(){
                     feed[localindex][this.value] = feed[localindex][localkey];
                     savefeed();
                     loadfeed();
-//                    
-  //                  
-
-    //                feed[localindex][localkey] = this.value;
-
-      //              console.log(this.id);
                 }
                 newtd.appendChild(newinput);
                 newtr.appendChild(newtd);
@@ -164,15 +176,15 @@ function loadfeed(){
                 newtd.appendChild(newinput);
                 newtr.appendChild(newtd);
                         
-//                console.log(key);
-  //              console.log(feed[index][key]);
                 var newtd = document.createElement("TD");
-                newtd.innerHTML = "DELETE";
-                newtd.classList.add("deleteline");
-                newtd.classList.add("button");
+                var newimg = document.createElement("IMG");
+                newimg.alt = "DELETE";
+                newimg.src = "iconsymbols/delete.svg";
+                newtd.appendChild(newimg);
+                newimg.classList.add("button");
                 newtr.appendChild(newtd);
-                newtd.id = "delete" + index.toString() + "key" + key;
-                newtd.onclick = function(){
+                newimg.id = "delete" + index.toString() + "key" + key;
+                newimg.onclick = function(){
                     var localindex = parseInt(this.id.split("delete")[1].split("key")[0]);
                     var localkey = this.id.split("key")[1];
                     delete feed[localindex][localkey];
@@ -208,11 +220,16 @@ body{
     overflow:scroll;
     background-color:#e0e0e0;
 }
+#feed table{
+    margin:2em 2em 2em 2em;
+    display:block;
+}
 table{
     border:solid;
 }
 .button{
     cursor:pointer;
+    width:30px;
 }
 .button:hover{
     background-color:#90ff90;

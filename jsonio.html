@@ -24,15 +24,13 @@
     <script src="jscode/geometron.js"></script>
 </head>
 <body>
-<div id =  "table">
-    <a href = "index.html">HOME</a>
-    <a href = "jsonio.html">JSON</a>
-    <a href = "feededitor.html">EDITOR</a>
+<a href= "index.html">HOME</a>
+<a href= "feededitor.html">FEED EDITOR</a>
+<a href= "feed.html">FEED</a>
 
-</div>
-<div id= "feed">
-    
-</div>
+<div id= "importbutton" class= "button">IMPORT</div>
+<textarea id = "textio"></textarea>
+
 <script>
 
 
@@ -40,36 +38,21 @@ feed = [];
 var httpcFeed = new XMLHttpRequest();
 httpcFeed.onreadystatechange = function(){
     if (this.readyState == 4 && this.status == 200) {
-        feed = JSON.parse(this.responseText);
-        loadfeed();
+        document.getElementById("textio").value = this.responseText; 
     }
 };
 httpcFeed.open("GET", "fileloader.php?filename=data/feed.txt", true);
 httpcFeed.send();
 
-function loadfeed(){
-    document.getElementById("feed").innerHTML = "";
-    for(var index = 0;index < feed.length;index++){
-        var newtable = document.createElement("TABLE");
-        document.getElementById("feed").appendChild(newtable);
 
-        for (const key in feed[index]) {
-            if (feed[index].hasOwnProperty(key)) {
-                var newtr = document.createElement("TR");
-                newtable.appendChild(newtr);
-                var newtd = document.createElement("TD");
-                newtd.classList.add("keytd");
-                newtd.innerHTML = key + ":";
-                newtr.appendChild(newtd);
-                var newtd = document.createElement("TD");
-                newtd.innerHTML = feed[index][key];
-                newtr.appendChild(newtd);
-            }
-        }
-    }
+document.getElementById("importbutton").onclick = function(){
+    feed = JSON.parse(document.getElementById("textio").value);
+    savefeed();
 }
 
+
 function savefeed(){
+
     var httpc = new XMLHttpRequest();
     httpc.open("POST", "filesaver.php", true);
     httpc.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -78,40 +61,30 @@ function savefeed(){
 }
 
 
-
 </script>
 <style>
 body{
     overflow:hidden;
 }
-#feed{
-    position:absolute;
-    top:100px;
-    left:0px;
-    right:0px;
-    bottom:0px;
-    overflow:scroll;
-    background-color:#e0e0e0;
-}
-#feed table{
-    margin:2em 2em 2em 2em;
-    display:block;
-}
-table{
-    border:solid;
+#textio{
+    width:80%;
+    height:40em;
+    font-family:courier;
+    font-size:12px;
+    background-color:black;
+    color:#00ff00;
 }
 .button{
     cursor:pointer;
-    width:30px;
+    border:solid;
+    width:12em;
+    text-align:center;
 }
 .button:hover{
     background-color:#90ff90;
 }
 .button:active{
     background-color:yellow;
-}
-.keytd{
-    text-align:right;
 }
 </style>
 </body>
