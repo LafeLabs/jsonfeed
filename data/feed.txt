@@ -1,8 +1,10 @@
 [
   {
-    "name": "foo",
+    "name": "trash robot",
     "url": "https://www.github.com/lafelabs/jsonfeed",
-    "href": "https://www.github.com/lafelabs/jsonfeed"
+    "href": "https://www.github.com/lafelabs/jsonfeed",
+    "twitter": "trashrobot0",
+    "tiktok": "trash_robot"
   },
   {
     "name": "secret url",
