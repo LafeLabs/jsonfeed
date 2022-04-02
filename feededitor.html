@@ -16,7 +16,7 @@
 
     
     -->
-    <link href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA/wAAAAD/AAAAAP8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAREAAAAAAiAAEAAAAAACIAAQAAAAAAACABAAAAAAAAAgEAAAAAAwAAIQAAADAzMzMwMzMzMwMAAAEgAAAwAAAAAQIAAAAAAAABACAAAAAAAAEAAgAAAAAAAQAAIgAAAAABAAAiAAAAABEQAAAAAAAAAQAAAAD+/wAA/H8AAM7/AADO/wAA9v8AAPr/AAC8/QAAAAAAAL59AAD+vwAA/t8AAP7vAAD+8wAA/vMAAPx/AAD+/wAA" rel="icon" type="image/x-icon" />
+    <link href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAP//AP///wANAP8A5Dz6ABueRwAAt/8A6BonABo86AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAREREREREREREREAAAEREREREQCIgREREd3dwAAB3d3d3d3d3d3d3d3d3d3d3d3d3VVVVVVVQAFVVAAVVVQIiBRAiIBEQIAIBECAAERAgAgFgIABmYCIiBmAiIGZgIiIGYCIgZmYCIAaIAAMzMzAAiIiIiIiIiIiIiIiIiIiIiIgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" rel="icon" type="image/x-icon" />
     
     <!--Stop Google:-->
     <META NAME="robots" CONTENT="noindex,nofollow">
@@ -42,9 +42,89 @@ httpcFeed.open("GET", "fileloader.php?filename=data/feed.txt", true);
 httpcFeed.send();
 
 function loadfeed(){
+    document.getElementById("feed").innerHTML = "";
     for(var index = 0;index < feed.length;index++){
         var newtable = document.createElement("TABLE");
         document.getElementById("feed").appendChild(newtable);
+        var newtr = document.createElement("TR");
+        newtable.appendChild(newtr);
+        
+        var newtd = document.createElement("TD");
+        newtd.innerHTML = "DELETE";
+        newtd.classList.add("button");
+        newtr.appendChild(newtd);           
+        newtd.id = "deleteelement" + index.toString(); 
+        newtd.onclick = function(){
+            var localindex = parseInt(this.id.split("deleteelement")[1]);
+            var localfeed = [];
+            for(var index = 0;index < feed.length;index++){
+                if(index != localindex){
+                    localfeed.push(feed[index]);
+                }
+            }
+            feed = localfeed;
+            savefeed();
+            loadfeed();
+        }
+
+        var newtd = document.createElement("TD");
+        newtd.innerHTML = "COPY";
+        newtd.classList.add("button");
+        newtr.appendChild(newtd);           
+        newtd.id = "copyelement" + index.toString(); 
+        newtd.onclick = function(){
+            var localindex = parseInt(this.id.split("copyelement")[1]);
+            var localelement = feed[localindex];
+            feed.push(localelement);
+            savefeed();
+            loadfeed();
+
+        }
+
+        var newtd = document.createElement("TD");
+        newtd.innerHTML = "MOVE UP";
+        newtd.classList.add("button");
+        newtr.appendChild(newtd);           
+        newtd.id = "moveup" + index.toString(); 
+        newtd.onclick = function(){
+            var localindex = parseInt(this.id.split("moveup")[1]);
+            var localelement = feed[localindex];
+            var localfeed = [];
+            for(var index = 0;index < feed.length;index++){
+                localfeed.push(feed[index]);
+            }
+            if(localindex > 0){
+                localfeed[localindex - 1] = feed[localindex];
+                localfeed[localindex] = feed[localindex - 1];
+            }
+            feed = localfeed;
+            savefeed();
+            loadfeed();
+
+        }
+
+        var newtd = document.createElement("TD");
+        newtd.innerHTML = "MOVE DOWN";
+        newtd.classList.add("button");
+        newtr.appendChild(newtd);           
+        newtd.id = "movedown" + index.toString(); 
+        newtd.onclick = function(){
+            var localindex = parseInt(this.id.split("movedown")[1]);
+            var localelement = feed[localindex];
+            var localfeed = [];
+            for(var index = 0;index < feed.length;index++){
+                localfeed.push(feed[index]);
+            }
+            if(localindex < feed.length - 1){
+                localfeed[localindex + 1] = feed[localindex];
+                localfeed[localindex] = feed[localindex + 1];
+            }
+            feed = localfeed;
+            savefeed();
+            loadfeed();
+
+        }
+
         for (const key in feed[index]) {
             if (feed[index].hasOwnProperty(key)) {
                 var newtr = document.createElement("TR");
@@ -53,17 +133,52 @@ function loadfeed(){
                 var newtd = document.createElement("TD");
                 var newinput = document.createElement("input");
                 newinput.value = key;
+                newinput.id = "input" + index.toString() + "key" + key; 
+                newinput.onchange = function(){
+                    var localindex = parseInt(this.id.split("input")[1].split("key")[0]);
+                    var localkey = this.id.split("key")[1];
+
+                    feed[localindex][this.value] = feed[localindex][localkey];
+                    savefeed();
+                    loadfeed();
+//                    
+  //                  
+
+    //                feed[localindex][localkey] = this.value;
+
+      //              console.log(this.id);
+                }
                 newtd.appendChild(newinput);
                 newtr.appendChild(newtd);
                 var newtd = document.createElement("TD");
                 var newinput = document.createElement("input");
+                newinput.id = "input" + index.toString() + "value" + key; 
                 newinput.value = feed[index][key];
+                newinput.onchange = function(){
+                    var localindex = parseInt(this.id.split("input")[1].split("value")[0]);
+                    var localkey = this.id.split("value")[1];
+                    feed[localindex][localkey] = this.value;
+                    savefeed();
+                    loadfeed();
+                }
                 newtd.appendChild(newinput);
                 newtr.appendChild(newtd);
-                
-                console.log(key);
-                console.log(feed[index][key]);
-                
+                        
+//                console.log(key);
+  //              console.log(feed[index][key]);
+                var newtd = document.createElement("TD");
+                newtd.innerHTML = "DELETE";
+                newtd.classList.add("deleteline");
+                newtd.classList.add("button");
+                newtr.appendChild(newtd);
+                newtd.id = "delete" + index.toString() + "key" + key;
+                newtd.onclick = function(){
+                    var localindex = parseInt(this.id.split("delete")[1].split("key")[0]);
+                    var localkey = this.id.split("key")[1];
+                    delete feed[localindex][localkey];
+                    savefeed();
+                    loadfeed();
+                }
             }
         }
     }
@@ -92,6 +207,25 @@ body{
     bottom:0px;
     overflow:scroll;
     background-color:#e0e0e0;
+}
+table{
+    border:solid;
+}
+.button{
+    cursor:pointer;
+}
+.button:hover{
+    background-color:#90ff90;
+}
+.button:active{
+    background-color:yellow;
+}
+
+.deleteline{
+    color:red;
+    font-family:courier;
+    background-color:black;
+    border:solid;
 }
 </style>
 </body>
