@@ -89,6 +89,17 @@ function loadfeed(){
         newimg.onclick = function(){
             var localindex = parseInt(this.id.split("copyelement")[1]);
             var localelement = feed[localindex];
+
+            var localfeed = [];
+            for(var index = 0;index < localindex;index++){
+                localfeed.push(feed[index]);
+            }
+            localfeed.push(localelement);
+            for(var index = localindex;index < feed.length;index++){
+                localfeed.push(localelement);
+            }
+            feed = localfeed;
+
             feed.push(localelement);
             savefeed();
             loadfeed();
