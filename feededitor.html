@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!--
+
+        EVERYTHING IS PHYSICAL 
+        EVERYTHING IS FRACTAL
+        EVERYTHING IS RECURSIVE
+        NO MONEY 
+        MO MINING 
+        NO PROPERTY
+        LOOK AT THE INSECTS
+        LOOK AT THE FUNGI
+        LANGUAGE IS HOW THE MIND PARSES REALITY
+
+    
+    -->
+    <link href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA/wAAAAD/AAAAAP8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAREAAAAAAiAAEAAAAAACIAAQAAAAAAACABAAAAAAAAAgEAAAAAAwAAIQAAADAzMzMwMzMzMwMAAAEgAAAwAAAAAQIAAAAAAAABACAAAAAAAAEAAgAAAAAAAQAAIgAAAAABAAAiAAAAABEQAAAAAAAAAQAAAAD+/wAA/H8AAM7/AADO/wAA9v8AAPr/AAC8/QAAAAAAAL59AAD+vwAA/t8AAP7vAAD+8wAA/vMAAPx/AAD+/wAA" rel="icon" type="image/x-icon" />
+    
+    <!--Stop Google:-->
+    <META NAME="robots" CONTENT="noindex,nofollow">
+<!--geometron javascript library-->
+    <script src="jscode/geometron.js"></script>
+</head>
+<body>
+<div id= "feed">
+    
+</div>
+<script>
+
+
+feed = [];
+var httpcFeed = new XMLHttpRequest();
+httpcFeed.onreadystatechange = function(){
+    if (this.readyState == 4 && this.status == 200) {
+        feed = JSON.parse(this.responseText);
+        loadfeed();
+    }
+};
+httpcFeed.open("GET", "fileloader.php?filename=data/feed.txt", true);
+httpcFeed.send();
+
+function loadfeed(){
+    for(var index = 0;index < feed.length;index++){
+        var newtable = document.createElement("TABLE");
+        document.getElementById("feed").appendChild(newtable);
+        for (const key in feed[index]) {
+            if (feed[index].hasOwnProperty(key)) {
+                var newtr = document.createElement("TR");
+                newtable.appendChild(newtr);
+
+                var newtd = document.createElement("TD");
+                var newinput = document.createElement("input");
+                newinput.value = key;
+                newtd.appendChild(newinput);
+                newtr.appendChild(newtd);
+                var newtd = document.createElement("TD");
+                var newinput = document.createElement("input");
+                newinput.value = feed[index][key];
+                newtd.appendChild(newinput);
+                newtr.appendChild(newtd);
+                
+                console.log(key);
+                console.log(feed[index][key]);
+                
+            }
+        }
+    }
+}
+
+function savefeed(){
+    var httpc = new XMLHttpRequest();
+    httpc.open("POST", "filesaver.php", true);
+    httpc.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    httpc.send("data="+encodeURIComponent(JSON.stringify(feed,null,"  "))+"&filename=data/feed.txt");//send text to filesaver.php
+     
+}
+
+
+
+</script>
+<style>
+body{
+    overflow:hidden;
+}
+#feed{
+    position:absolute;
+    top:100px;
+    left:0px;
+    right:0px;
+    bottom:0px;
+    overflow:scroll;
+    background-color:#e0e0e0;
+}
+</style>
+</body>
+</html>

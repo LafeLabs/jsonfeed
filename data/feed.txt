@@ -1,0 +1,10 @@
+[
+{
+    "name":"TRASH ROBOT",
+    "url":"https://www.trashrobot.org/"
+},
+{
+    "name":"GITHUB",
+    "url":"https://www.github.com/lafelabs/jsonfeed"
+}
+]
