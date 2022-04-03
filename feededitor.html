@@ -88,7 +88,7 @@ function loadfeed(){
         newimg.id = "copyelement" + index.toString(); 
         newimg.onclick = function(){
             var localindex = parseInt(this.id.split("copyelement")[1]);
-            var localelement = feed[localindex];
+            var localelement = JSON.parse(JSON.stringify(feed[localindex]));
 
             var localfeed = [];
             for(var index = 0;index < localindex;index++){
@@ -96,11 +96,9 @@ function loadfeed(){
             }
             localfeed.push(localelement);
             for(var index = localindex;index < feed.length;index++){
-                localfeed.push(localelement);
+                localfeed.push(feed[index]);
             }
             feed = localfeed;
-
-            feed.push(localelement);
             savefeed();
             loadfeed();
 

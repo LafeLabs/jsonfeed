@@ -7,30 +7,6 @@
     "tiktok": "trash_robot"
   },
   {
-    "name": "secret url",
-    "email": "secret url",
-    "tiktok": "trashr_robot",
-    "instagram": "secret url",
-    "href": "https://www.trashrobot.org"
-  },
-  {
-    "name": "foo",
-    "url": "https://www.github.com/lafelabs/jsonfeed",
-    "zeep": "foo"
-  },
-  {
-    "name": "foo",
-    "url": "https://www.github.com/lafelabs/jsonfeed",
-    "zeep": "foo"
-  },
-  {
-    "name": "foo",
-    "url": "https://www.github.com/lafelabs/jsonfeed",
-    "zeep": "foo"
-  },
-  {
-    "name": "foo",
-    "url": "https://www.github.com/lafelabs/jsonfeed",
-    "zeep": "foo"
+    "name": "foo"
   }
 ]
